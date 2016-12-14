@@ -2,6 +2,7 @@
 library(shiny)
 library(plotly)
 library(dplyr)
+library(RColorBrewer)
 
 data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
 
@@ -31,6 +32,9 @@ shinyServer(function(input, output) {
     
     year.trimmed <- aggregate(year.trimmed$Average_GPA, list(year.trimmed$Primary_Instructor), mean)
     
+    year.trimmed$Group.1 <- factor(year.trimmed$Group.1, levels = unique(year.trimmed$Group.1)[order(year.trimmed$x,
+                                                                                                     decreasing = TRUE)])
+    
     # return(year.trimmed)
     
     
@@ -54,12 +58,9 @@ shinyServer(function(input, output) {
     # return(p)
     # 
     
-    p <- plot_ly(year.trimmed, x = ~x, y = ~Group.1, type = 'bar', name = 'Average GPA') %>%
-      # add_trace(y = ~A, name = 'A') %>%
-      # # add_trace(y = ~'A-', name = 'A-') %>%
-      # add_trace(y = ~B, name = 'B') %>%
-      # # add_trace(y = ~'B-', name = 'B-') %>%
-      layout(yaxis = list(title = 'Average GPA'), barmode = 'stack')
+    p <- plot_ly(year.trimmed, x = ~Group.1, y = ~x, type = 'bar', name = 'Average GPA',
+                 color = ~Group.1) %>%
+      layout(yaxis = list(title = 'Average GPA'), barmode = 'bar')
       return(p)
     
   })

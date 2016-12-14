@@ -2,6 +2,7 @@
 library(shiny)
 library(plotly)
 library(dplyr)
+library(RColorBrewer)
 
 data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
 
