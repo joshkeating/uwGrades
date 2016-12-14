@@ -3,7 +3,7 @@ library(shiny)
 library(plotly)
 library(dplyr)
 
-data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
+data <- read.csv("./resources/gradeData.csv", stringsAsFactors = FALSE)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {

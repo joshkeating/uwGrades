@@ -3,7 +3,7 @@ library(shiny)
 library(plotly)
 library(dplyr)
 
-data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
+data <- read.csv("./resources/gradeData.csv", stringsAsFactors = FALSE)
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
@@ -38,9 +38,10 @@ shinyUI(fluidPage(
       # dataTableOutput('table')
       
     )
-  ),
-  h3("Notes"),
-  p("If a professor has taught multiple sections of a class either over the year or in a quarter, the averages for that class 
-    have been averaged into one average GPA for that professor for each year.")
+  )
+  # ,
+  # h3("Notes"),
+  # p("If a professor has taught multiple sections of a class either over the year or in a quarter, the averages for that class 
+  #   have been averaged into one average GPA for that professor for each year.")
   
 ))
