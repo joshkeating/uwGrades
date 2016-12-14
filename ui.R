@@ -2,7 +2,6 @@
 library(shiny)
 library(plotly)
 library(dplyr)
-library(RColorBrewer)
 
 data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
 
@@ -16,35 +15,32 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(
         
-      
-      
-      textInput("text", label = h3("Select a Course"), value = "CSE 142"),
+      textInput("text", label = h3("Select a Course"), value = "cse 142"),
       
       # displays some help text for the user
-      helpText("Note: Syntax of class input should be abbreviation of ",
+      helpText("Syntax of class input should be abbreviation of ",
                "the class followed by the course number i.e INFO 200."),
       
       selectInput("select", label = h3("Select Year"), 
                   choices = c(unique(as.character(data$Year))),
                   selected = 2014),
       
-      helpText("Note: Select year to view grade distribution.")
+      helpText("Select year to view grade distribution.")
       
     ),
-    
-    
-    
-    
+   
     
     # Show a plot of the generated distribution
     mainPanel(
-      
       
       plotlyOutput("plot")
       
       # dataTableOutput('table')
       
-      
     )
-  )
+  ),
+  h3("Notes"),
+  p("If a professor has taught multiple sections of a class either over the year or in a quarter, the averages for that class 
+    have been averaged into one average GPA for that professor for each year.")
+  
 ))

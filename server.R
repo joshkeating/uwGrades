@@ -2,7 +2,6 @@
 library(shiny)
 library(plotly)
 library(dplyr)
-library(RColorBrewer)
 
 data <- read.csv("/home/josh/Code/uwGrades/resources/gradeData.csv", stringsAsFactors = FALSE)
 
@@ -56,12 +55,11 @@ shinyServer(function(input, output) {
     #   
     #   layout(yaxis = list(title = 'Average GPA'), barmode = 'group')
     # return(p)
-    # 
+    
     
     x <- list(title = "Professor")
     
-    p <- plot_ly(year.trimmed, x = ~Group.1, y = ~x, type = 'bar', name = 'Average GPA',
-                 color = ~Group.1) %>%
+    p <- plot_ly(year.trimmed, x = ~Group.1, y = ~x, type = 'bar', name = 'Average GPA', color = ~Group.1) %>%
       layout(yaxis = list(title = 'Average GPA'), margin = list(b = 180), xaxis = x)
       return(p)
     
