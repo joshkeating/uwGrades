@@ -3,6 +3,7 @@ library(shiny)
 library(plotly)
 library(dplyr)
 
+# initialize dataset
 data <- read.csv("./resources/gradeData.csv", stringsAsFactors = FALSE)
 
 # Define UI for application that draws a histogram

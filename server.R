@@ -3,18 +3,22 @@ library(shiny)
 library(plotly)
 library(dplyr)
 
+# initialize dataset
 data <- read.csv("./resources/gradeData.csv", stringsAsFactors = FALSE)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   
+  # define text input widget
   output$value <- renderPrint({ input$text })
   
+  # define selection input widget
   output$selct <- renderPrint({ input$select })
   
-  
+  # function that filters the dataset and builds a plotly graph
   datasetInput <- reactive({
     
+    # checks to see if there is input in the text input widget
     validate(
       need(input$text != "", 'Please enter a class.')
     )
@@ -26,49 +30,30 @@ shinyServer(function(input, output) {
     # sets NA values to 0
     year.trimmed[is.na(year.trimmed)] <- 0
     
-    # year.trimmed <- arrange(year.trimmed, desc(Average_GPA))
-    
     year.trimmed <- aggregate(year.trimmed$Average_GPA, list(year.trimmed$Primary_Instructor), mean)
     
-    year.trimmed$Group.1 <- factor(year.trimmed$Group.1, levels = unique(year.trimmed$Group.1)[order(year.trimmed$x,
-                                                                                                     decreasing = TRUE)])
+    year.trimmed$Group.1 <- factor(year.trimmed$Group.1, levels = unique(year.trimmed$Group.1)[order(year.trimmed$x, decreasing = TRUE)])
     
+    # Uncomment this for data table troubleshooting
     # return(year.trimmed)
     
-    
-    # ax <- list(
-    #   type = "Primary_Instructor",
-    #   categoryorder = "Primary_Instructor ascending",
-    #   showgrid = TRUE,
-    #   showline = TRUE,
-    #   autorange = TRUE,
-    #   showticklabels = TRUE,
-    #   ticks = "outside",
-    #   tickangle = 0
-    # )
-    
-    
-    
-    # p <- plot_ly(year.trimmed, x = ~Primary_Instructor, y = ~Average_GPA, type = 'bar', name = 'Average GPA') %>%
-    #   add_trace(y = ~c(Autumn, Winter), name = 'Autumn') %>%
-    #   
-    #   layout(yaxis = list(title = 'Average GPA'), barmode = 'group')
-    # return(p)
-    
-    
+    # ues this to set label for x axis
     x <- list(title = "Professor")
     
+    # puts together the plotly plot
     p <- plot_ly(year.trimmed, x = ~Group.1, y = ~x, type = 'bar', name = 'Average GPA', color = ~Group.1) %>%
       layout(yaxis = list(title = 'Average GPA'), margin = list(b = 180), xaxis = x)
-      return(p)
-    
+      
+    return(p)
+
   })
   
+  # sends datasetInput function output to the plot
   output$plot <- renderPlotly({
     datasetInput()
   })
   
-  
+  # Uncomment this for data table troubleshooting
   # output$table <- renderDataTable(datasetInput())
   
   
