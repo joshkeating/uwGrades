@@ -15,13 +15,15 @@ shinyUI(fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-        
+      
+      # creates text input widget
       textInput("text", label = h3("Select a Course"), value = "cse 142"),
       
       # displays some help text for the user
       helpText("Syntax of class input should be abbreviation of ",
                "the class followed by the course number i.e INFO 200."),
       
+      # creates select dropdown widget
       selectInput("select", label = h3("Select Year"), 
                   choices = c(unique(as.character(data$Year))),
                   selected = 2014),
@@ -30,16 +32,17 @@ shinyUI(fluidPage(
       
     ),
    
-    
     # Show a plot of the generated distribution
     mainPanel(
       
       plotlyOutput("plot")
       
+      # Uncomment this for data table troubleshooting
       # dataTableOutput('table')
       
     )
   )
+  
   # ,
   # h3("Notes"),
   # p("If a professor has taught multiple sections of a class either over the year or in a quarter, the averages for that class 

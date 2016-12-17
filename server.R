@@ -23,6 +23,7 @@ shinyServer(function(input, output) {
       need(input$text != "", 'Please enter a class.')
     )
     
+    # filters dataset based on user input based on class and year
     year.trimmed <- filter(data, Class == toupper(input$text), Year == input$select)
     
     # removes dropped class data
@@ -30,8 +31,10 @@ shinyServer(function(input, output) {
     # sets NA values to 0
     year.trimmed[is.na(year.trimmed)] <- 0
     
+    # averages the Average_GPA of each teacher over each year
     year.trimmed <- aggregate(year.trimmed$Average_GPA, list(year.trimmed$Primary_Instructor), mean)
     
+    # sorts the data to be in decending order
     year.trimmed$Group.1 <- factor(year.trimmed$Group.1, levels = unique(year.trimmed$Group.1)[order(year.trimmed$x, decreasing = TRUE)])
     
     # Uncomment this for data table troubleshooting
@@ -55,7 +58,5 @@ shinyServer(function(input, output) {
   
   # Uncomment this for data table troubleshooting
   # output$table <- renderDataTable(datasetInput())
-  
-  
   
 })
