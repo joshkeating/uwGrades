@@ -18,13 +18,13 @@ shinyServer(function(input, output) {
   # function that filters the dataset and builds a plotly graph
   datasetInput <- reactive({
     
-    # checks to see if there is input in the text input widget
-    validate(
-      need(input$text != "", 'Please enter a class.')
-    )
-    
     # filters dataset based on user input based on class and year
     year.trimmed <- filter(data, Class == toupper(input$text), Year == input$select)
+
+    # checks to see if there is input in the text input widget
+    validate(
+      need(NROW(year.trimmed) > 0, 'Please enter a valid course name and number.')
+    )
     
     # removes dropped class data
     year.trimmed$W <- NULL
