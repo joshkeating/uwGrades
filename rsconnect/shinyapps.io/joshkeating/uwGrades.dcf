@@ -3,9 +3,9 @@ title: uwGrades
 account: joshkeating
 server: shinyapps.io
 appId: 145372
-bundleId: 650742
+bundleId: 664354
 url: https://joshkeating.shinyapps.io/uwGrades/
-when: 1481766193.5862
+when: 1483073762.55124
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: README.md
