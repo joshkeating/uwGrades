@@ -45,7 +45,7 @@ shinyServer(function(input, output) {
     
     # puts together the plotly plot
     p <- plot_ly(year.trimmed, x = ~Group.1, y = ~x, type = 'bar', name = 'Average GPA', color = ~Group.1) %>%
-      layout(yaxis = list(title = 'Average GPA'), margin = list(b = 180), xaxis = x)
+      layout(yaxis = list(title = 'Average GPA', range = c(0, 4)), margin = list(b = 180), xaxis = x)
       
     return(p)
 
