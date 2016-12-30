@@ -21,7 +21,7 @@ shinyServer(function(input, output) {
     # filters dataset based on user input based on class and year
     year.trimmed <- filter(data, Class == toupper(input$text), Year == input$select)
 
-    # checks to see if there is input in the text input widget
+    # checks to see if there is (valid) input in the text input widget
     validate(
       need(NROW(year.trimmed) > 0, 'Please enter a valid course name and number.')
     )
