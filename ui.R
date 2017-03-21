@@ -3,9 +3,6 @@ library(shiny)
 library(plotly)
 library(dplyr)
 
-# initialize dataset
-data <- read.csv("./resources/gradeData.csv", stringsAsFactors = FALSE)
-
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
@@ -24,9 +21,7 @@ shinyUI(fluidPage(
                "the class followed by the course number i.e INFO 200."),
       
       # creates select dropdown widget
-      selectInput("select", label = h3("Select Year"), 
-                  choices = c(unique(as.character(data$Year))),
-                  selected = 2014),
+      uiOutput("select"),
       
       helpText("Select year to view grade distribution.")
       
